@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+Widget myTextField(String hint){
+  return TextFormField(
+    keyboardType: TextInputType.emailAddress,
+    autofocus: false,
+    initialValue: '',
+    decoration: InputDecoration(
+      hintText: hint,
+      contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+    ),
+  );
+}
+Widget myPassTextField(String hint,double border){
+  return TextFormField(
+    keyboardType: TextInputType.emailAddress,
+    autofocus: false,
+    obscureText: true,
+    initialValue: '',
+    decoration: InputDecoration(
+      hintText: hint,
+      contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(border)),
+
+    ),
+  );
+}
+
+Widget myRecTextField(String hint,TextEditingController myController,double border){
+  return TextFormField(
+    controller: myController,
+    keyboardType: TextInputType.emailAddress,
+    autofocus: false,
+    decoration: InputDecoration(
+      hintText: hint,
+      contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(border)),
+
+    ),
+  );
+}
+
