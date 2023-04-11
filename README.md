@@ -1,4 +1,4 @@
-# Simple CRUD Application  [DOwnload The application](https://github.com)
+# Simple CRUD Application  [Download app](https://github.com/PAPPURAJ/SimpleCrud/blob/main/Simple%20CRUD%20Task.apk)
 This is a simple CRUD application built using Flutter that allows users to log in, view a list of products, view product details, add new products with images, delete existing products, and view their profile details. The project uses the latest version of Flutter and follows best practices for state management using Getx and local storage using Hive. It also uses Dio for API calling.
 
 ## Features
