@@ -1,18 +1,14 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:simplecrudapplication/constants/api.dart';
 import 'package:simplecrudapplication/urils/mydio.dart';
 import 'package:get/get.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CreateProductScreen extends StatefulWidget {
   @override
   _CreateProductScreenState createState() => _CreateProductScreenState();
 }
-
 
 class _CreateProductScreenState extends State<CreateProductScreen> {
   final _formKey = GlobalKey<FormState>();
@@ -30,9 +26,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   final _mrpController = TextEditingController();
 
   File? file;
-  String imageURL="";
+  String imageURL = "";
 
   final imgPicker = ImagePicker();
+
   Future<void> showOptionsDialog(BuildContext _context) {
     return showDialog(
         context: _context,
@@ -45,12 +42,13 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   GestureDetector(
                     child: const Text("Capture Image From Camera"),
                     onTap: () async {
-                      var imgCamera = await imgPicker.getImage(source: ImageSource.camera);
+                      var imgCamera =
+                          await imgPicker.getImage(source: ImageSource.camera);
                       setState(() {
                         file = File(imgCamera!.path);
-                        imageURL=imgCamera.path;
+                        imageURL = imgCamera.path;
+                        Get.back();
                       });
-                      Navigator.of(context).pop();
                     },
                   ),
                   const Padding(padding: EdgeInsets.all(10)),
@@ -58,11 +56,13 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                     child: const Text("Take Image From Gallery"),
                     onTap: () async {
                       var imgGallery =
-                      await imgPicker.getImage(source: ImageSource.gallery);
+                          await imgPicker.getImage(source: ImageSource.gallery);
                       setState(() {
                         file = File(imgGallery!.path);
-                       imageURL=imgGallery.path;
+                        imageURL = imgGallery.path;
+                        Get.back();
                       });
+
                     },
                   ),
                 ],
@@ -72,54 +72,54 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         });
   }
 
-
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-
       final data = {
         "name": _nameController.text,
         "barcode": _barcodeController.text,
         "description": _descriptionController.text,
         "image": imageURL,
         "subCategory": {
-                  "id": 1851,
-                  "name": "Traditional Clothing",
-                  "image": "https://static-01.daraz.com.bd/p/9c2c14d484ee2f25d22677e0a0b6bcb2.jpg",
-                  "description": "Traditional Clothing",
-                  "category": {
-                    "id": 1801,
-                    "name": null,
-                    "image": null,
-                    "description": null
-                  }
-                },
+          "id": 1851,
+          "name": "Traditional Clothing",
+          "image":
+              "https://static-01.daraz.com.bd/p/9c2c14d484ee2f25d22677e0a0b6bcb2.jpg",
+          "description": "Traditional Clothing",
+          "category": {
+            "id": 1801,
+            "name": null,
+            "image": null,
+            "description": null
+          }
+        },
         "brand": {
-                "id": 2551,
-                "name": "Traditional Clothing",
-                "image": "https://static-01.daraz.com.bd/p/9c2c14d484ee2f25d22677e0a0b6bcb2.jpg",
-                "description": "Traditional Clothing",
-                "image":"string"
-              },
+          "id": 2551,
+          "name": "Traditional Clothing",
+          "image":
+              "https://static-01.daraz.com.bd/p/9c2c14d484ee2f25d22677e0a0b6bcb2.jpg",
+          "description": "Traditional Clothing",
+          "image": "string"
+        },
         "quantity": {
-          "id":2254,
+          "id": 2254,
           "quantity": int.parse(_quantityController.text),
           "unit": _unitController.text,
           "unitValue": int.parse(_unitValueController.text),
           "pastQuantity": int.parse(_pastQuantityController.text),
         },
         "productPrice": {
-          "id":2308,
-          "price": int.parse(_priceController.text),
-          "unitPrice": int.parse(_unitPriceController.text),
-          "mrp": int.parse(_mrpController.text),
+          "id": 2308,
+          "price": double.parse(_priceController.text),
+          "unitPrice": double.parse(_unitPriceController.text),
+          "mrp": double.parse(_mrpController.text),
         }
       };
-
-      if(await addProduct(data)){
+      Fluttertoast.showToast(msg: "Uploading! Please wait...");
+      if (await addProduct(data)) {
         print("Data added!");
-
+        Fluttertoast.showToast(msg: "Data successfully added!");
         Get.back();
-      }else{
+      } else {
 
       }
     }
@@ -142,22 +142,22 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                 child: Container(
                   child: file != null
                       ? Container(
-                    height: 200,
-                    width: 200,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: FileImage(file!),
-                        )),
-                  )
+                          height: 200,
+                          width: 200,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                            image: FileImage(file!),
+                          )),
+                        )
                       : Container(
-                    height: 200,
-                    width: 200,
-                    decoration:
-                    const BoxDecoration(color: Colors.transparent),
-                    child: const Image(
-                        image:
-                        const AssetImage('assets/images/profile.png')),
-                  ),
+                          height: 200,
+                          width: 200,
+                          decoration:
+                              const BoxDecoration(color: Colors.transparent),
+                          child: const Image(
+                              image: AssetImage(
+                                  'assets/images/addimage.jpg')),
+                        ),
                 ),
               ),
               TextFormField(
@@ -167,6 +167,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   if (value!.isEmpty) {
                     return 'Please enter a name';
                   }
+
                   return null;
                 },
               ),

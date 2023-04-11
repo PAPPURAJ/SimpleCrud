@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget myTextField(String hint){
+Widget myTextField(String hint) {
   return TextFormField(
     keyboardType: TextInputType.emailAddress,
     autofocus: false,
@@ -13,7 +13,8 @@ Widget myTextField(String hint){
   );
 }
 
-Widget myPassTextField(String hint,TextEditingController myController,double border){
+Widget myPassTextField(
+    String hint, TextEditingController myController, double border) {
   return TextFormField(
     controller: myController,
     keyboardType: TextInputType.emailAddress,
@@ -23,13 +24,12 @@ Widget myPassTextField(String hint,TextEditingController myController,double bor
       hintText: hint,
       contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(border)),
-
     ),
   );
 }
 
-
-Widget myRecTextField(String hint,TextEditingController myController,double border){
+Widget myRecTextField(
+    String hint, TextEditingController myController, double border) {
   return TextFormField(
     controller: myController,
     keyboardType: TextInputType.emailAddress,
@@ -38,8 +38,6 @@ Widget myRecTextField(String hint,TextEditingController myController,double bord
       hintText: hint,
       contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(border)),
-
     ),
   );
 }
-

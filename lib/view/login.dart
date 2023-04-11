@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:simplecrudapplication/constants/api.dart';
 import 'package:simplecrudapplication/view/viewproduct.dart';
@@ -8,17 +7,14 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-
-
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignIn extends StatefulWidget {
   @override
   State<SignIn> createState() => _SignInState();
 }
 
-
-bool rememberLogin=false;
+bool rememberLogin = false;
 TextEditingController username = TextEditingController();
 TextEditingController password = TextEditingController();
 
@@ -26,9 +22,6 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
-
-
-
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -109,7 +102,7 @@ class _SignInState extends State<SignIn> {
                           activeColor: Colors.deepOrange,
                           onChanged: (value) {
                             setState(() {
-                              rememberLogin=!rememberLogin;
+                              rememberLogin = !rememberLogin;
                             });
                           },
                         ),
@@ -120,7 +113,9 @@ class _SignInState extends State<SignIn> {
                 ),
                 const SizedBox(height: 20),
                 myButton(context, "LOG IN", () {
-                  _signInWithNameAndPass(context,username!.text,password!.text);
+                  Fluttertoast.showToast(msg: "Please wait...");
+                  _signInWithNameAndPass(
+                      context, username!.text, password!.text);
                 }, 0.9),
               ],
             ),
@@ -130,8 +125,8 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  Future<void> _signInWithNameAndPass(BuildContext context,String usernameSt,String passSt) async {
-
+  Future<void> _signInWithNameAndPass(
+      BuildContext context, String usernameSt, String passSt) async {
     final dio = Dio();
 
     final data = {
@@ -151,14 +146,15 @@ class _SignInState extends State<SignIn> {
         print(responseData);
         Get.clearRouteTree();
         Get.to(ProductListScreen());
-        Hive.box("Login").put("username",usernameSt);
-        Hive.box("Login").put("password",passSt);
-
+        Hive.box("Login").put("username", usernameSt);
+        Hive.box("Login").put("password", passSt);
+        Fluttertoast.showToast(msg: "Sign-in successful!");
       } else {
         print('Request failed with status: ${response.statusCode}.');
       }
     } catch (e) {
       print('Error occurred: $e');
+      Fluttertoast.showToast(msg: "Sign-in failed! Recheck username and password!");
     }
   }
 }
