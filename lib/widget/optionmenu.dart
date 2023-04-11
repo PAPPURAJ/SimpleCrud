@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simplecrudapplication/view/accountview.dart';
+import 'package:hive/hive.dart';
+import 'package:simplecrudapplication/view/login.dart';
 
 List<Widget> myMenu(){
   return  <Widget>[
@@ -9,6 +11,8 @@ List<Widget> myMenu(){
         if (choice == 'Profile Info') {
           Get.to(ProfileView());
         } else if (choice == 'Logout') {
+          Hive.box("Login").clear();
+          Get.offAll(() => SignIn());
 
         }
       },

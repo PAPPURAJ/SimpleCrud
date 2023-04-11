@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:simplecrudapplication/model/product.dart';
@@ -15,7 +14,7 @@ class DetailsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Details Screen'),
+        title: const Text('Details Screen'),
         actions: myMenu(),
       ),
       body: Padding(
@@ -23,43 +22,35 @@ class DetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: FileImage(File(item.image as String)),
-                  )),
-            ),
             Center(
               child: SizedBox(
                 width: 400,
                 height: 400,
-                child: item.image != null
-                    ? Image.network(item.image!)
-                    : Icon(Icons.image),
+                child:  item.image != null
+                    ? (item.image!.contains("/data/")?Image.file(File(item.image!)):Image.network(item.image!))
+                    : const Icon(Icons.image)
               ),
             ),
-            SizedBox(height: 16.0),
-            Text('Name: ${item.name ?? ''}', style: TextStyle(fontSize: 20)),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 16.0),
+            Text('Name: ${item.name ?? ''}', style: const TextStyle(fontSize: 20)),
+            const SizedBox(height: 8.0),
             Text('Barcode: ${item.barcode ?? ''}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 8.0),
+                style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 8.0),
             Text('Description: ${item.description ?? ''}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 8.0),
+                style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 8.0),
             Text('Subcategory: ${item.subCategory?.name ?? ''}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 8.0),
+                style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 8.0),
             Text('Brand: ${item.brand?.name ?? ''}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 8.0),
+                style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 8.0),
             Text('Quantity: ${item.quantity?.quantity.toString() ?? ''}',
-                style: TextStyle(fontSize: 16)),
-            SizedBox(height: 8.0),
+                style: const TextStyle(fontSize: 16)),
+            const SizedBox(height: 8.0),
             Text('Price: ${item.productPrice?.price.toString() ?? ''}',
-                style: TextStyle(fontSize: 16)),
+                style: const TextStyle(fontSize: 16)),
 
             Center(
               child: myButton(context, "Delete", (){

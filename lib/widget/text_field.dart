@@ -12,12 +12,13 @@ Widget myTextField(String hint){
     ),
   );
 }
-Widget myPassTextField(String hint,double border){
+
+Widget myPassTextField(String hint,TextEditingController myController,double border){
   return TextFormField(
+    controller: myController,
     keyboardType: TextInputType.emailAddress,
     autofocus: false,
     obscureText: true,
-    initialValue: '',
     decoration: InputDecoration(
       hintText: hint,
       contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -26,6 +27,7 @@ Widget myPassTextField(String hint,double border){
     ),
   );
 }
+
 
 Widget myRecTextField(String hint,TextEditingController myController,double border){
   return TextFormField(

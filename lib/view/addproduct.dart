@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:simplecrudapplication/constants/api.dart';
+import 'package:simplecrudapplication/urils/mydio.dart';
+import 'package:get/get.dart';
 
 
 class CreateProductScreen extends StatefulWidget {
@@ -72,7 +75,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      final dio = Dio();
+
       final data = {
         "name": _nameController.text,
         "barcode": _barcodeController.text,
@@ -112,19 +115,12 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
         }
       };
 
-      final response = await dio.post(
-        "https://secure-falls-43052.herokuapp.com/api/products",
-        data: jsonEncode(data),
-        options: Options(
-          headers: {'Authorization':'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTY4MzcxOTc5Nn0.pdXbk_rLSJN7465uirmaKFi9cbemyiKOj_fc1mB7JWFLLDHl-Xa-ebeAdw8IJ-xQlRFNKWBF8xYle0tNnWEeSw'}
-        )
-      );
-      if (response.statusCode == 200) {
-        // Handle success
-        print(response.data);
-      } else {
-        // Handle error
-        print(response.statusMessage);
+      if(await addProduct(data)){
+        print("Data added!");
+
+        Get.back();
+      }else{
+
       }
     }
   }
@@ -133,7 +129,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Product'),
+        title: const Text('Create Product'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -166,7 +162,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter a name';
@@ -176,7 +172,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _barcodeController,
-                decoration: InputDecoration(labelText: 'Barcode'),
+                decoration: const InputDecoration(labelText: 'Barcode'),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter a barcode';
@@ -186,7 +182,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _descriptionController,
-                decoration: InputDecoration(labelText: 'Description'),
+                decoration: const InputDecoration(labelText: 'Description'),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter a description';
@@ -196,7 +192,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _subCategoryController,
-                decoration: InputDecoration(labelText: 'Subcategory ID'),
+                decoration: const InputDecoration(labelText: 'Subcategory ID'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -207,7 +203,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _brandController,
-                decoration: InputDecoration(labelText: 'Brand ID'),
+                decoration: const InputDecoration(labelText: 'Brand ID'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -218,7 +214,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _quantityController,
-                decoration: InputDecoration(labelText: 'Quantity'),
+                decoration: const InputDecoration(labelText: 'Quantity'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -229,7 +225,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _unitController,
-                decoration: InputDecoration(labelText: 'Unit'),
+                decoration: const InputDecoration(labelText: 'Unit'),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter a unit';
@@ -239,7 +235,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _unitValueController,
-                decoration: InputDecoration(labelText: 'Unit Value'),
+                decoration: const InputDecoration(labelText: 'Unit Value'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -250,7 +246,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _pastQuantityController,
-                decoration: InputDecoration(labelText: 'Past Quantity'),
+                decoration: const InputDecoration(labelText: 'Past Quantity'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -261,7 +257,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _priceController,
-                decoration: InputDecoration(labelText: 'Price'),
+                decoration: const InputDecoration(labelText: 'Price'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -272,7 +268,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _unitPriceController,
-                decoration: InputDecoration(labelText: 'Unit Price'),
+                decoration: const InputDecoration(labelText: 'Unit Price'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -283,7 +279,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               ),
               TextFormField(
                 controller: _mrpController,
-                decoration: InputDecoration(labelText: 'MRP'),
+                decoration: const InputDecoration(labelText: 'MRP'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -292,10 +288,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Submit'),
+                child: const Text('Submit'),
               ),
             ],
           ),

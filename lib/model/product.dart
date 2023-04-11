@@ -20,7 +20,7 @@ class ProductModel {
         this.productPrice,
         this.image});
 
-  ProductModel.fromJson(Map<String, dynamic> json) {
+  ProductModel.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
     name = json['name'];
     barcode = json['barcode'];
@@ -38,8 +38,8 @@ class ProductModel {
     image = json['image'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map<dynamic, dynamic> toJson() {
+    final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     data['barcode'] = this.barcode;
@@ -64,14 +64,14 @@ class ProductModel {
 class SubCategory {
   int? id;
   String? name;
-  Null? image;
+  String? image;
   String? description;
   Category? category;
 
   SubCategory(
       {this.id, this.name, this.image, this.description, this.category});
 
-  SubCategory.fromJson(Map<String, dynamic> json) {
+  SubCategory.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
     name = json['name'];
     image = json['image'];
@@ -81,8 +81,8 @@ class SubCategory {
         : null;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map<dynamic, dynamic> toJson() {
+    final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     data['image'] = this.image;
@@ -102,15 +102,15 @@ class Category {
 
   Category({this.id, this.name, this.image, this.description});
 
-  Category.fromJson(Map<String, dynamic> json) {
+  Category.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
     name = json['name'];
     image = json['image'];
     description = json['description'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map<dynamic, dynamic> toJson() {
+    final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     data['image'] = this.image;
@@ -129,7 +129,7 @@ class Quantity {
   Quantity(
       {this.id, this.quantity, this.unit, this.unitValue, this.pastQuantity});
 
-  Quantity.fromJson(Map<String, dynamic> json) {
+  Quantity.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
     quantity = json['quantity'];
     unit = json['unit'];
@@ -137,8 +137,8 @@ class Quantity {
     pastQuantity = json['pastQuantity'] as int;
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map<dynamic, dynamic> toJson() {
+    final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
     data['id'] = this.id;
     data['quantity'] = this.quantity;
     data['unit'] = this.unit;
@@ -156,15 +156,15 @@ class ProductPrice {
 
   ProductPrice({this.id, this.price, this.unitPrice, this.mrp});
 
-  ProductPrice.fromJson(Map<String, dynamic> json) {
+  ProductPrice.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
     price = json['price'];
     unitPrice = json['unitPrice'];
     mrp = json['mrp'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map<dynamic, dynamic> toJson() {
+    final Map<dynamic, dynamic> data = new Map<dynamic, dynamic>();
     data['id'] = this.id;
     data['price'] = this.price;
     data['unitPrice'] = this.unitPrice;

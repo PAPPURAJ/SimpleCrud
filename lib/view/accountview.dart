@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:simplecrudapplication/constants/api.dart';
 import 'package:simplecrudapplication/model/accountmodel.dart';
 import 'package:hive/hive.dart';
+import 'package:simplecrudapplication/urils/mydio.dart';
 class ProfileView extends StatefulWidget {
   @override
   _ProfileViewState createState() => _ProfileViewState();
@@ -13,23 +17,13 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     super.initState();
-    _fetchAccount();
+    viewAccount((f){
+      setState(() {
+        account = AccountModel.fromJson(f.data);
+      });
+    });
   }
 
-  void _fetchAccount() async {
-    const String apiUrl = 'https://secure-falls-43052.herokuapp.com/api/account';
-    final String token = Hive.box("Login").get("Token",defaultValue: "NA");
-    final dio = Dio();
-    dio.options.headers['Authorization'] = 'Bearer $token';
-    try {
-      final response = await dio.get(apiUrl);
-      setState(() {
-        account = AccountModel.fromJson(response.data);
-      });
-    } catch (e) {
-      print(e.toString());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

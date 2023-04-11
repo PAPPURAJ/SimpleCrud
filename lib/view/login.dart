@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:simplecrudapplication/constants/api.dart';
 import 'package:simplecrudapplication/view/viewproduct.dart';
 import 'package:simplecrudapplication/widget/button.dart';
 import 'package:simplecrudapplication/widget/text_field.dart';
@@ -18,13 +19,13 @@ class SignIn extends StatefulWidget {
 
 
 bool rememberLogin=false;
+TextEditingController username = TextEditingController();
+TextEditingController password = TextEditingController();
 
 class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     WidgetsFlutterBinding.ensureInitialized();
-    TextEditingController username = TextEditingController();
-    TextEditingController password = TextEditingController();
 
 
 
@@ -96,7 +97,7 @@ class _SignInState extends State<SignIn> {
                 SizedBox(height: MediaQuery.of(context).size.height / 5),
                 myRecTextField('Username', username!, 0.8),
                 const SizedBox(height: 20.0),
-                myRecTextField('Password', password!, 0.8),
+                myPassTextField('Password', password!, 0.8),
                 const SizedBox(height: 24.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -132,7 +133,6 @@ class _SignInState extends State<SignIn> {
   Future<void> _signInWithNameAndPass(BuildContext context,String usernameSt,String passSt) async {
 
     final dio = Dio();
-    final url = 'https://secure-falls-43052.herokuapp.com/api/authenticate';
 
     final data = {
       'username': usernameSt,
@@ -142,17 +142,17 @@ class _SignInState extends State<SignIn> {
 
     try {
       final response = await dio.post(
-        url,
+        loginAPIURL,
         data: jsonEncode(data),
       );
 
       if (response.statusCode == 200) {
         final responseData = response.data;
         print(responseData);
+        Get.clearRouteTree();
         Get.to(ProductListScreen());
-        Hive.box("Login").put("Token",responseData.toString());
-
-
+        Hive.box("Login").put("username",usernameSt);
+        Hive.box("Login").put("password",passSt);
 
       } else {
         print('Request failed with status: ${response.statusCode}.');
