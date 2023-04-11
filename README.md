@@ -26,6 +26,6 @@ This is a simple CRUD application built using Flutter that allows users to log i
     ![add product](https://user-images.githubusercontent.com/45383061/231205459-c052609f-99b0-45b6-a7ce-3693e0645da6.png)
     ![add picture](https://user-images.githubusercontent.com/45383061/231205685-6d0ea488-73b6-485f-9ad1-532c71a12070.png)
     ![menu](https://user-images.githubusercontent.com/45383061/231205349-7a4d2571-b7a6-412c-bfe7-a6784e3a8d8a.png)
-    ![about](https://user-images.githubusercontent.com/45383061/231205414-684885ea-474a-481b-ac38-12a7d0ea0fec.png)
+   ![about](https://user-images.githubusercontent.com/45383061/231205414-684885ea-474a-481b-ac38-12a7d0ea0fec.png)
 
 
